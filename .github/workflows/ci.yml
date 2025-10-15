@@ -35,6 +35,11 @@ jobs:
       - run: |
           pip install pylint
           pylint src/ --output-format=text > lint_report.txt || true
+      - name: Upload lint report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-report
+          path: lint_report.txt
 
   security:
     runs-on: ubuntu-latest
@@ -47,3 +52,4 @@ jobs:
       - run: |
           pip install bandit
           bandit -r src/ -v || true
+          
